@@ -1,11 +1,6 @@
-CC = g++
-FILES = example.cpp sound_maker.cpp 
-FLAGS = -std=c++11 -g
-EXE = run.exe
-
-all: $(FILES) sound_maker.hpp
-	$(CC) $(FILES) -o $(EXE) $(FLAGS)
+sound_maker: example.cpp sound_maker.cpp sound_maker.hpp
+	g++ example.cpp sound_maker.cpp -o sound_maker.exe -std=c++11 -g
 
 clean:
-	rm run.exe
+	rm -rf "sound_maker" *.exe sound_maker
 	

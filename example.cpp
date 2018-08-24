@@ -112,14 +112,15 @@ int main() {
 
 	// Generate c scale starting at the 3rd octave
 	generate_data(S, 0.0, 0.1);
-	generate_data(S, music_map[ 'c'][3], 1.0); generate_data(S, 0.0, 0.1);
-	generate_data(S, music_map[ 'd'][3], 1.0); generate_data(S, 0.0, 0.1);
-	generate_data(S, music_map[ 'e'][3], 1.0); generate_data(S, 0.0, 0.1);
-	generate_data(S, music_map[ 'f'][3], 1.0); generate_data(S, 0.0, 0.1);
-	generate_data(S, music_map[ 'g'][3], 1.0); generate_data(S, 0.0, 0.1);
-	generate_data(S, music_map[ 'a'][3], 1.0); generate_data(S, 0.0, 0.1);
-	generate_data(S, music_map[ 'b'][3], 1.0); generate_data(S, 0.0, 0.1);
-	generate_data(S, music_map[ 'c'][4], 1.0); generate_data(S, 0.0, 0.1);
+	generate_data(S, 440.0, 3);
+	// generate_data(S, music_map[ 'c'][3], 1.0); generate_data(S, 0.0, 0.1);
+	// generate_data(S, music_map[ 'd'][3], 1.0); generate_data(S, 0.0, 0.1);
+	// generate_data(S, music_map[ 'e'][3], 1.0); generate_data(S, 0.0, 0.1);
+	// generate_data(S, music_map[ 'f'][3], 1.0); generate_data(S, 0.0, 0.1);
+	// generate_data(S, music_map[ 'g'][3], 1.0); generate_data(S, 0.0, 0.1);
+	// generate_data(S, music_map[ 'a'][3], 1.0); generate_data(S, 0.0, 0.1);
+	// generate_data(S, music_map[ 'b'][3], 1.0); generate_data(S, 0.0, 0.1);
+	// generate_data(S, music_map[ 'c'][4], 1.0); generate_data(S, 0.0, 0.1);
 	generate_data(S, 0.0, 0.1);
 
 	// Generate random notes
