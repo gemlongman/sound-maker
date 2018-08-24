@@ -6,57 +6,15 @@
 
 #include <iostream>
 #include <string>
-#include <cmath>
+
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
-#include "sound_maker.hpp"
 #include <map>
 
-
-constexpr double two_pi = 6.283185307179586476925286766559;
-constexpr double max_amplitude = 32760;
-constexpr double hz = 44100.0;
+#include "SoundMaker/sound_maker.hpp"
 
 
-// Function that will convert frequency and time duration into .wav file samples
-void generate_data( SoundMaker& S, double freq, double amount_time = 1.0 ) {
-	
-	double frequency = freq;
-	double seconds = amount_time;
-
-	double chan_1 = 0.0; // channel 1
-	double chan_2 = 0.0; // channel 2
-	
-	double amplitude = (double) 32760.0;
-	int period;
-	frequency == 0.0 ? period = -1 : period = (int) (hz / (2.0 * frequency)) ; // number of samples in a wave length
-
-	double step = max_amplitude / period;
-
-	int samples = hz * seconds;
-	int x;
-	double value;
-
-	for ( int n = 0; n < samples; n++ ) {
-		
-		chan_2 += step;
-		x = n % (2 * period);
-		value = sin( ((two_pi * n * frequency)  / hz ));
-
-		// Channel 1 has sine wave
-		chan_1 = amplitude * value;
-
-		// Channel 2 will have a half circle wave
-		chan_2 = sqrt(  pow(2*32760.0, 2) * (1.0 - ( pow(x - (period) ,2) / pow(period,2))) ) - 32760.0;
-
-		if (frequency == 0.0)
-			chan_2 = 0.0;
-
-		S.add_sample( (int) (chan_1), (int) (chan_2) ); // Add sample to .wav file
-
-	}
-}
 
 
 int main() {
@@ -99,6 +57,7 @@ int main() {
 	// Create file and initialize .wav file headers
 	SoundMaker S("new_sound.wav");
 	
+	S.GenerateWave(440,3);
 
 	// Loop through all notes in 9 octaves @440hz
 	//
@@ -110,9 +69,9 @@ int main() {
 	// }
 
 
-	// Generate c scale starting at the 3rd octave
-	generate_data(S, 0.0, 0.1);
-	generate_data(S, 440.0, 3);
+	// // Generate c scale starting at the 3rd octave
+	// generate_data(S, 0.0, 0.1);
+	// generate_data(S, 440.0, 3);
 	// generate_data(S, music_map[ 'c'][3], 1.0); generate_data(S, 0.0, 0.1);
 	// generate_data(S, music_map[ 'd'][3], 1.0); generate_data(S, 0.0, 0.1);
 	// generate_data(S, music_map[ 'e'][3], 1.0); generate_data(S, 0.0, 0.1);
@@ -121,7 +80,7 @@ int main() {
 	// generate_data(S, music_map[ 'a'][3], 1.0); generate_data(S, 0.0, 0.1);
 	// generate_data(S, music_map[ 'b'][3], 1.0); generate_data(S, 0.0, 0.1);
 	// generate_data(S, music_map[ 'c'][4], 1.0); generate_data(S, 0.0, 0.1);
-	generate_data(S, 0.0, 0.1);
+	// generate_data(S, 0.0, 0.1);
 
 	// Generate random notes
 	//
