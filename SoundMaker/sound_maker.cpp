@@ -61,6 +61,37 @@ void SoundMaker::GenerateWave( double freq, double amount_time = 1.0 ) {
 	double seconds = amount_time;
 
 	double chan_1 = 0.0; // channel 1
+	
+	double amplitude = (double) max_amplitude;
+	int period;
+	frequency == 0.0 ? period = -1 : period = (int) (hz / (2.0 * frequency)) ; // number of samples in a wave length
+
+	//double step = max_amplitude / period;
+
+	long long samples = hz * seconds;
+
+	double value;
+
+	for ( long long n = 0; n < samples; n++ ) {
+		// w = 2 * pi / T ; detal_t = freq / 44100 ; 
+		value = sin( ((two_pi * n * frequency)  / hz ));
+
+		// Channel 1 has sine wave
+		chan_1 = amplitude * value;
+
+		this -> add_sample( (int) (chan_1), (int) (chan_1) ); // Add sample to .wav file
+
+	}
+}
+
+/*
+// Function that will convert frequency and time duration into .wav file samples
+void generate_data( SoundMaker& S, double freq, double amount_time = 1.0 ) {
+	
+	double frequency = freq;
+	double seconds = amount_time;
+
+	double chan_1 = 0.0; // channel 1
 	double chan_2 = 0.0; // channel 2
 	
 	double amplitude = (double) 32760.0;
@@ -69,11 +100,11 @@ void SoundMaker::GenerateWave( double freq, double amount_time = 1.0 ) {
 
 	double step = max_amplitude / period;
 
-	long long samples = hz * seconds;
+	int samples = hz * seconds;
 	int x;
 	double value;
 
-	for ( long long n = 0; n < samples; n++ ) {
+	for ( int n = 0; n < samples; n++ ) {
 		
 		chan_2 += step;
 		x = n % (2 * period);
@@ -88,46 +119,8 @@ void SoundMaker::GenerateWave( double freq, double amount_time = 1.0 ) {
 		if (frequency == 0.0)
 			chan_2 = 0.0;
 
-		this -> add_sample( (int) (chan_1), (int) (chan_2) ); // Add sample to .wav file
+		S.add_sample( (int) (chan_1), (int) (chan_2) ); // Add sample to .wav file
 
 	}
 }
-
-// Function that will convert frequency and time duration into .wav file samples
-// void generate_data( SoundMaker& S, double freq, double amount_time = 1.0 ) {
-	
-// 	double frequency = freq;
-// 	double seconds = amount_time;
-
-// 	double chan_1 = 0.0; // channel 1
-// 	double chan_2 = 0.0; // channel 2
-	
-// 	double amplitude = (double) 32760.0;
-// 	int period;
-// 	frequency == 0.0 ? period = -1 : period = (int) (hz / (2.0 * frequency)) ; // number of samples in a wave length
-
-// 	double step = max_amplitude / period;
-
-// 	int samples = hz * seconds;
-// 	int x;
-// 	double value;
-
-// 	for ( int n = 0; n < samples; n++ ) {
-		
-// 		chan_2 += step;
-// 		x = n % (2 * period);
-// 		value = sin( ((two_pi * n * frequency)  / hz ));
-
-// 		// Channel 1 has sine wave
-// 		chan_1 = amplitude * value;
-
-// 		// Channel 2 will have a half circle wave
-// 		chan_2 = sqrt(  pow(2*32760.0, 2) * (1.0 - ( pow(x - (period) ,2) / pow(period,2))) ) - 32760.0;
-
-// 		if (frequency == 0.0)
-// 			chan_2 = 0.0;
-
-// 		S.add_sample( (int) (chan_1), (int) (chan_2) ); // Add sample to .wav file
-
-// 	}
-// }
+*/

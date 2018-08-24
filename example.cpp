@@ -1,22 +1,14 @@
-// author: etratipza@gmail.com
-// date: 03-17-2018
-// inspired by: 
-//		http://www.topherlee.com/software/pcm-tut-wavformat.html
-//		http://www.cplusplus.com/forum/beginner/166954/
 
 #include <iostream>
 #include <string>
-
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
 #include <map>
+#include <unistd.h>
 
 #include "SoundMaker/sound_maker.hpp"
-
-
-
-
+/*
 int main() {
 
 	srand( time(NULL));
@@ -94,3 +86,56 @@ int main() {
 	return 0;
 }
 
+*/
+
+int main(int argc, char **argv) {
+	std::string wavfilename="new_sound.wav"; 
+	int freq = 440;
+	int time = 3;
+
+	int opt;
+	while((opt = getopt(argc, argv, "o:f:t:h")) != -1) {
+        switch(opt) {
+        case 'o':
+			wavfilename = std::string(optarg);
+            break;
+        case 'f': 
+            if(sscanf(optarg, "%d", &freq) != 1) {
+                std::cout << "input freq err" << std::endl;
+                return -1;
+            }
+            if(freq < 20 || freq > 20000) {
+                std::cout << "freq must between 20 - 20000" << std::endl;
+                return -1;
+            }
+            break;
+        case 't': 
+			if(sscanf(optarg, "%d", &time) != 1) {
+                std::cout << "input time err" << std::endl;
+                return -1;
+            }
+            if(time < 0 || time > 3600) {
+                std::cout << "time must between 0 - 3600" << std::endl;
+                return -1;
+            }
+            break;
+        case 'h':
+        case '?':
+        case ':':
+            std::cout << "run -o soud.wav -f 440 -t 3" << std::endl;
+            return -1;
+        }
+    }
+	std::cout << "BEGIN file:" << wavfilename <<std::endl;
+	std::cout << "freq " << freq <<std::endl;
+	std::cout << "time " << time <<std::endl;
+	// Create file and initialize .wav file headers
+	SoundMaker S(wavfilename);
+
+	S.GenerateWave(freq,time);
+	// Final header adjustments and close file
+	S.done(); 
+	std::cout << "FINISHED" << std::endl;
+
+	return 0;
+}
