@@ -91,7 +91,7 @@ int main() {
 int main(int argc, char **argv) {
 	std::string wavfilename="new_sound.wav"; 
 	int freq = 440;
-	int time = 3;
+	double time = 3;
 
 	int opt;
 	while((opt = getopt(argc, argv, "o:f:t:h")) != -1) {
@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
             }
             break;
         case 't': 
-			if(sscanf(optarg, "%d", &time) != 1) {
+			if(sscanf(optarg, "%lf", &time) != 1) {
                 std::cout << "input time err" << std::endl;
                 return -1;
             }

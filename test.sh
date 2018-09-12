@@ -1,3 +1,3 @@
-#bin/bash
+﻿#bin/bash
 
-./sound_maker.exe -o simple1000.wav -f 1000 -t 1
+./sound_maker.exe -o simple440-1.5.wav -f 440 -t 1.5
